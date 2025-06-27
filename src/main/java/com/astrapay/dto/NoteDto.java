@@ -11,6 +11,8 @@ import java.time.OffsetDateTime;
 @Builder
 public class NoteDto {
 
+    private Long id;
+
     @NotEmpty(message = "title cannot be empty")
     private String title;
 

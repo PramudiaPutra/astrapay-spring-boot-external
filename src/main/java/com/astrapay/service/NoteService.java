@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -29,5 +30,9 @@ public class NoteService {
                 .build();
 
         return noteRepository.save(note);
+    }
+
+    public List<Note> getNote() {
+        return noteRepository.findAll();
     }
 }

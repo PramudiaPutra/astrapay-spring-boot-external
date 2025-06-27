@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Api(value = "NoteController")
@@ -28,11 +30,27 @@ public class NoteController {
     public ResponseEntity<NoteDto> createNote(@Valid @RequestBody NoteDto noteDto) {
         Note noteData = noteService.createNote(noteDto);
         NoteDto response = NoteDto.builder()
+                .id(noteData.getId())
                 .title(noteData.getTitle())
                 .description(noteData.getDescription())
                 .createdAt(noteData.getCreatedAt())
                 .updatedAt(noteData.getUpdatedAt())
                 .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<NoteDto>> getNote() {
+        List<NoteDto> response = noteService.getNote().stream().map(noteData ->
+            NoteDto.builder()
+                    .id(noteData.getId())
+                    .title(noteData.getTitle())
+                    .description(noteData.getDescription())
+                    .createdAt(noteData.getCreatedAt())
+                    .updatedAt(noteData.getUpdatedAt())
+                    .build()
+        ).collect(Collectors.toList());
 
         return ResponseEntity.ok(response);
     }
