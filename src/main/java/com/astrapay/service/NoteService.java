@@ -2,6 +2,7 @@ package com.astrapay.service;
 
 import com.astrapay.dto.NoteDto;
 import com.astrapay.entity.Note;
+import com.astrapay.exception.ResourceNotFoundException;
 import com.astrapay.repository.NoteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -34,5 +36,9 @@ public class NoteService {
 
     public List<Note> getNote() {
         return noteRepository.findAll();
+    }
+
+    public Note getNote(Long id) {
+        return noteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cannot found note with id: " + id));
     }
 }

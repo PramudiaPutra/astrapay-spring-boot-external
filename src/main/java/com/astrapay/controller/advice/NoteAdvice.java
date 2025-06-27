@@ -1,5 +1,6 @@
 package com.astrapay.controller.advice;
 
+import com.astrapay.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -28,5 +29,17 @@ public class NoteAdvice {
         errorResponse.put("timestamp", new Timestamp(System.currentTimeMillis()));
 
         return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleResourceNotFoundError(ResourceNotFoundException ex) {
+
+        Map<String, Object> errorResponse = new HashMap<>();
+        errorResponse.put("error", "NOT_FOUND");
+        errorResponse.put("message", ex.getMessage());
+        errorResponse.put("timestamp", new Timestamp(System.currentTimeMillis()));
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 }

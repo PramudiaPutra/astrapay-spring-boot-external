@@ -54,4 +54,19 @@ public class NoteController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<NoteDto> getNote(@PathVariable Long id) {
+        Note noteData = noteService.getNote(id);
+
+        NoteDto response = NoteDto.builder()
+                .id(noteData.getId())
+                .title(noteData.getTitle())
+                .description(noteData.getDescription())
+                .createdAt(noteData.getCreatedAt())
+                .updatedAt(noteData.getUpdatedAt())
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
 }
