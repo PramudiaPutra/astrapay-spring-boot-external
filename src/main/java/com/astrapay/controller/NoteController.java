@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -68,5 +69,16 @@ public class NoteController {
                 .build();
 
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Map<String, Object>> deleteNote(@PathVariable Long id) {
+        noteService.deleteNote(id);
+
+        return ResponseEntity.ok(Map.of(
+                "status", "success",
+                "message", "Note deleted successfully",
+                "id", id
+        ));
     }
 }

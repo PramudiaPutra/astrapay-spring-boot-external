@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -40,5 +39,10 @@ public class NoteService {
 
     public Note getNote(Long id) {
         return noteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cannot found note with id: " + id));
+    }
+
+    public void deleteNote(Long id) {
+        getNote(id);
+        noteRepository.deleteById(id);
     }
 }
