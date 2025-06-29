@@ -19,5 +19,8 @@ mvn spring-boot:run
 3. **Access the API**:
 
 ```bash
-[GET][POST][DELETE] http://localhost:8000/note
+[GET][POST][DELETE] [LABEL](http://localhost:8000/note)
 ```
+4. **Front-End Demo**
+
+https://github.com/PramudiaPutra/astrapay-angular-external
